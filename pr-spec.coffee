@@ -9,7 +9,6 @@ class File
 
     @_wrapAll()
     @_setFileName()
-    @setOrder(index)
 
   _setFileName: ->
     header = @$element.find(".file-header")
@@ -19,54 +18,58 @@ class File
     @$merger.wrapAll "<div class='file-wrapper'/>"
     @$parent = @$element.parent(".file-wrapper")
 
-  setOrder: (index) ->
+  isSpec: ->
+    @fileName.indexOf("_spec") > 0
+
+  isFeatureSpec: ->
+    @isSpec() && @fileName.indexOf("feature") > 0
+
+  setOrder: (index) =>
     @$parent.css("order", index)
 
 class FileManager
   constructor: (selector) ->
     @$parent = $(selector)
 
-    @_initFiles(selector)
-    @_initFileNames()
+    @files = @_initFiles(selector)
+    @$parent.css(
+      'display': 'inline-flex',
+      'flex-direction': 'column'
+    )
 
-    console.log @_finalOrder
+  sort: (fileName) =>
+    fileNames = []
 
-  _finalOrder: ->
+    @files.each (index, file) ->
+      fileName = file.fileName
+      simpleName = fileName.split(".")[0]
+      simpleName = simpleName.split("/")
+      simpleName = simpleName[simpleName.length-1]
+
+      fileNames.push simpleName
+
+    fileSpecs = fileNames.map (fileName, index) ->
+      fileNames.indexOf(fileName + "_spec")
+
     finalOrder = []
 
-    @simpleNames.each (index, simpleName) =>
+    @files.each (index, file) =>
+      if file.isFeatureSpec()
+        finalOrder.unshift file
 
-      # Push the index unless it's a spec
-      unless @_isSpec simpleName
-        finalOrder.push index
+      unless file.isSpec()
+        finalOrder.push file
 
-      # If it has a spec, push that index afterwards
-      finalOrder.push @_specIndexFor simpleName
+      if fileSpecs[index] > 0
+        spec = @files[fileSpecs[index]]
+        finalOrder.push spec
 
-    finalOrder
+    finalOrder.forEach (file, index) =>
+      file.setOrder index
 
   _initFiles: (selector) ->
-    @files = $(selector + "> div").map (index, fileSelector) ->
-    	new File fileSelector, index
+    $(selector + "> div").map (index, fileSelector) ->
+      new File fileSelector, index
 
-  _initFileNames: ->
-    @simpleNames = @files.map (index, file) =>
-    	@_getSimpleName(file.fileName)
-
-  _getSimpleName: (fileName) ->
-    arr = fileName.split(".")[0]
-    arr = arr.split('/')
-    arr[arr.length-1]
-
-  _isSpec: (fileName) ->
-  	fileName.indexOf "_spec" > 0
-
-  _specIndexFor: (fileName) ->
-    index = @simpleNames.indexOf fileName + "_spec"
-
-    if index
-      index
-    else
-      null
-
-new FileManager "#files"
+FM = new FileManager "#files"
+FM.sort()
