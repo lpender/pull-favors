@@ -74,6 +74,6 @@ class FileManager
       "flex-direction": "column"
     )
 
-
-FM = new FileManager "#files"
-FM.sort()
+$ ->
+  FM = new FileManager "#files"
+  FM.sort()
