@@ -19,7 +19,7 @@ class File
     @$parent = @$element.parent(".file-wrapper")
 
   isSpec: ->
-    @fileName.indexOf("_spec") > 0
+    @fileName.indexOf("_spec.") > 0
 
   isFeatureSpec: ->
     @isSpec() && @fileName.indexOf("feature") > 0
@@ -62,10 +62,10 @@ class FileManager
         finalOrder.push spec
 
     finalOrder.forEach (file, index) =>
-      file.setOrder index
+      file.setOrder index + 1
 
   _initFiles: (selector) ->
-    $(selector + "> div").map (index, fileSelector) ->
+    $(selector + "> div:not(.file-wrapper)").map (index, fileSelector) ->
       new File fileSelector, index
 
   _setStyles: () ->
@@ -74,6 +74,10 @@ class FileManager
       "flex-direction": "column"
     )
 
-$ ->
-  FM = new FileManager "#files"
-  FM.sort()
+init = ->
+  window.PullFavors = new FileManager "#files"
+  window.PullFavors.sort()
+
+setInterval init, 3000
+
+init()
