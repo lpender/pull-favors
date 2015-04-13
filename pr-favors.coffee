@@ -15,7 +15,7 @@ class File
     @fileName = header.data("path")
 
   _wrapAll: ->
-    @$merger.wrapAll "<div class='file-wrapper'/>"
+    @$merger.wrapAll "<div class=\"file-wrapper\"/>"
     @$parent = @$element.parent(".file-wrapper")
 
   isSpec: ->
@@ -32,10 +32,7 @@ class FileManager
     @$parent = $(selector)
 
     @files = @_initFiles(selector)
-    @$parent.css(
-      'display': 'inline-flex',
-      'flex-direction': 'column'
-    )
+    @_setStyles()
 
   sort: (fileName) =>
     fileNames = []
@@ -70,6 +67,13 @@ class FileManager
   _initFiles: (selector) ->
     $(selector + "> div").map (index, fileSelector) ->
       new File fileSelector, index
+
+  _setStyles: () ->
+    @$parent.css(
+      "display": "inline-flex",
+      "flex-direction": "column"
+    )
+
 
 FM = new FileManager "#files"
 FM.sort()
