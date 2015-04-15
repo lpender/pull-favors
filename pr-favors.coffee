@@ -1,9 +1,13 @@
+fileParent = "#files"
+tocParent = "#toc ol"
+
 class File
   fileName: null,
 
   constructor: (selector, index) ->
     @$element = $(selector)
     anchor = @$element.prev()
+    @$tocElement = $(tocParent).find("> li:eq("+index+")")
 
     @$merger = @$element.add anchor
 
@@ -26,12 +30,15 @@ class File
 
   setOrder: (index) =>
     @$parent.css("order", index)
+    @$tocElement.css("order", index)
+
 
 class FileManager
-  constructor: (selector) ->
-    @$parent = $(selector)
+  constructor: ->
+    @$parent = $(fileParent)
+    @$tocParent = $(tocParent)
 
-    @files = @_initFiles(selector)
+    @files = @_initFiles(fileParent)
     @_setStyles()
 
   sort: (fileName) =>
@@ -62,20 +69,22 @@ class FileManager
         finalOrder.push spec
 
     finalOrder.forEach (file, index) =>
-      file.setOrder index + 1
+      newIndex = index + 1
+      file.setOrder newIndex
 
   _initFiles: (selector) ->
     $(selector + "> div:not(.file-wrapper)").map (index, fileSelector) ->
       new File fileSelector, index
 
   _setStyles: () ->
-    @$parent.css(
-      "display": "inline-flex",
+    options =
+      "display": "flex",
       "flex-direction": "column"
-    )
+    @$parent.css options
+    @$tocParent.css options
 
 init = ->
-  window.PullFavors = new FileManager "#files"
+  window.PullFavors = new FileManager()
   window.PullFavors.sort()
 
 setInterval init, 3000
