@@ -122,7 +122,7 @@
     return window.PullFavors.sort();
   };
 
-  setInterval(init, 3000);
+  setInterval(init, 500);
 
   init();
 
