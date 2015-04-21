@@ -33,11 +33,11 @@
     };
 
     File.prototype.isSpec = function() {
-      return this.fileName.indexOf("_spec.") > 0;
+      return this.fileName.indexOf("spec") > -1;
     };
 
     File.prototype.isFeatureSpec = function() {
-      return this.isSpec() && this.fileName.indexOf("feature") > 0;
+      return this.isSpec() && this.fileName.indexOf("feature") > -1;
     };
 
     File.prototype.setOrder = function(index) {

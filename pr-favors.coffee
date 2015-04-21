@@ -23,10 +23,10 @@ class File
     @$parent = @$element.parent(".file-wrapper")
 
   isSpec: ->
-    @fileName.indexOf("_spec.") > 0
+    @fileName.indexOf("spec") > -1
 
   isFeatureSpec: ->
-    @isSpec() && @fileName.indexOf("feature") > 0
+    @isSpec() && @fileName.indexOf("feature") > -1
 
   setOrder: (index) =>
     @$parent.css("order", index)
