@@ -1,8 +1,9 @@
-fileParent = "#files"
+fileParent = "#files.diff-view"
 tocParent = "#toc ol"
 
 class File
   fileName: null,
+  order: null,
 
   constructor: (selector, index) ->
     @$element = $(selector)
@@ -29,9 +30,9 @@ class File
     @isSpec() && @fileName.indexOf("feature") > -1
 
   setOrder: (index) =>
+    @order = index
     @$parent.css("order", index)
     @$tocElement.css("order", index)
-
 
 class FileManager
   constructor: ->
@@ -57,6 +58,7 @@ class FileManager
 
     finalOrder = []
 
+    # order orderable files
     @files.each (index, file) =>
       if file.isFeatureSpec()
         finalOrder.unshift file
@@ -69,8 +71,13 @@ class FileManager
         finalOrder.push spec
 
     finalOrder.forEach (file, index) =>
-      newIndex = index + 1
-      file.setOrder newIndex
+      file.setOrder index
+
+    # cleanup leftover files
+    @files.each (index, file) ->
+      if file.order == null
+        finalOrder.push file
+        file.setOrder finalOrder.length - 1
 
   _initFiles: (selector) ->
     $(selector + "> div:not(.file-wrapper)").map (index, fileSelector) ->

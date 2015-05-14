@@ -3,12 +3,14 @@
   var File, FileManager, fileParent, init, tocParent,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  fileParent = "#files";
+  fileParent = "#files.diff-view";
 
   tocParent = "#toc ol";
 
   File = (function() {
     File.prototype.fileName = null;
+
+    File.prototype.order = null;
 
     function File(selector, index) {
       this.setOrder = __bind(this.setOrder, this);
@@ -41,6 +43,7 @@
     };
 
     File.prototype.setOrder = function(index) {
+      this.order = index;
       this.$parent.css("order", index);
       return this.$tocElement.css("order", index);
     };
@@ -88,13 +91,17 @@
           }
         };
       })(this));
-      return finalOrder.forEach((function(_this) {
+      finalOrder.forEach((function(_this) {
         return function(file, index) {
-          var newIndex;
-          newIndex = index + 1;
-          return file.setOrder(newIndex);
+          return file.setOrder(index);
         };
       })(this));
+      return this.files.each(function(index, file) {
+        if (file.order === null) {
+          finalOrder.push(file);
+          return file.setOrder(finalOrder.length - 1);
+        }
+      });
     };
 
     FileManager.prototype._initFiles = function(selector) {
