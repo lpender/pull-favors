@@ -39,7 +39,7 @@
     };
 
     File.prototype.isFeatureSpec = function() {
-      return this.isSpec() && this.fileName.indexOf("feature") > -1;
+      return this.isSpec() && this.fileName.indexOf("spec/features") > -1;
     };
 
     File.prototype.setOrder = function(index) {

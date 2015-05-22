@@ -27,7 +27,7 @@ class File
     @fileName.indexOf("spec") > -1
 
   isFeatureSpec: ->
-    @isSpec() && @fileName.indexOf("feature") > -1
+    @isSpec() && @fileName.indexOf("spec/features") > -1
 
   setOrder: (index) =>
     @order = index
