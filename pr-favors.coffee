@@ -45,13 +45,15 @@ class FileManager
   sort: (fileName) =>
     fileNames = []
 
+    # add simpleNames to fileNames array
     @files.each (index, file) ->
       fileName = file.fileName
       simpleName = fileName.split(".")[0]
+      extension = fileName.split(".")[1]
       simpleName = simpleName.split("/")
-      simpleName = simpleName[simpleName.length-1]
+      simpleName.shift()
 
-      fileNames.push simpleName
+      fileNames.push simpleName.join("/")
 
     fileSpecs = fileNames.map (fileName, index) ->
       fileNames.indexOf(fileName + "_spec")

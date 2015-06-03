@@ -65,12 +65,13 @@
       var fileNames, fileSpecs, finalOrder;
       fileNames = [];
       this.files.each(function(index, file) {
-        var simpleName;
+        var extension, simpleName;
         fileName = file.fileName;
         simpleName = fileName.split(".")[0];
+        extension = fileName.split(".")[1];
         simpleName = simpleName.split("/");
-        simpleName = simpleName[simpleName.length - 1];
-        return fileNames.push(simpleName);
+        simpleName.shift();
+        return fileNames.push(simpleName.join("/"));
       });
       fileSpecs = fileNames.map(function(fileName, index) {
         return fileNames.indexOf(fileName + "_spec");
