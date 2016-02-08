@@ -4,9 +4,11 @@ About
 Pull Favors re-orders your RSpec pull requests so that they are more readable.
 
 It places feature-specs first.
+
 It places other specs next to the files that they test.
 
 It expects feature specs to be in `spec/features`.
+
 Other specs should correspond to the files they test in the following way:
 
 `app/folder/file.rb` => `spec/folder/file_spec.rb`
