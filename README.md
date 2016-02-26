@@ -1,8 +1,5 @@
-About
-----
-
-Pull Favors re-orders your RSpec and RSpec-compatible  pull requests so that
-they are more readable.
+Pull Favors is a Chrome extension that re-orders your RSpec and RSpec-compatible pull 
+requests so that they are more readable.
 
 It places feature-specs first.
 
