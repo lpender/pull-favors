@@ -10,7 +10,7 @@ It places other specs next to the files that they test.
 
 ## Before
 
-Random Order:
+Alphabetical Order:
 
 ![image](https://cloud.githubusercontent.com/assets/1406554/13355568/0f6e4992-dc6f-11e5-96b9-36b21154402f.png)
 
