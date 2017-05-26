@@ -46,8 +46,10 @@
       this.$parent.css("order", index);
 
       // Add to the top most
-      this.$parent.detach()
-      $(fileParent)[0].appendChild(this.$parent[0])
+      if (this.$parent.parent()[0] !== $(fileParent)[0]) {
+        this.$parent.detach()
+        $(fileParent)[0].appendChild(this.$parent[0])
+      }
 
       return this.$tocElement.css("order", index);
     };
@@ -146,8 +148,9 @@
   })();
 
   var pf = new FileManager();
+  pf.getNewFiles()
 
   setInterval(function () {
     pf.getNewFiles()
-  }, 1500);
+  }, 500);
 }).call(this);
