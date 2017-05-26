@@ -1,4 +1,6 @@
 (function() {
+  console.log("Pull Favors Initializing")
+
   var File, FileManager, fileParent, init, tocParent,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
@@ -63,9 +65,6 @@
   FileManager = (function() {
     function FileManager() {
       this.sort = bind(this.sort, this);
-      this.$parent = $(fileParent);
-      this.$tocParent = $(tocParent);
-      this._setStyles();
     }
 
     FileManager.prototype.getNewFiles = function () {
@@ -77,6 +76,10 @@
         } else {
           files = newFiles;
         }
+        this.$parent = $(fileParent);
+        this.$tocParent = $(tocParent);
+        this._setStyles();
+
         this.sort();
       }
     }
