@@ -71,7 +71,7 @@
 
       if (newFiles && newFiles.length > 0) {
         if (files) {
-          files.merge(newFiles);
+          $.merge(files, newFiles);
         } else {
           files = newFiles;
         }
