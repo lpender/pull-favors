@@ -1,5 +1,5 @@
-[Pull Favors](https://chrome.google.com/webstore/detail/pull-favors/eekfnkibgmemnnbbmdglmjabjdfdjglj?hl=en) 
-is a Chrome extension that re-orders your RSpec and RSpec-compatible pull requests so 
+[Pull Favors](https://chrome.google.com/webstore/detail/pull-favors/eekfnkibgmemnnbbmdglmjabjdfdjglj?hl=en)
+is a Chrome extension that re-orders your RSpec and RSpec-compatible pull requests so
 that they are more readable.
 
 It places feature-specs first.
