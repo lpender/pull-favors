@@ -3,7 +3,7 @@
     "name": "Pull Favors",
     "short_name": "GitHub Pull-Request Beautifier",
     "description": "GitHub Pull-Request Beautifier",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "content_scripts" : [
       {
         "matches": [
