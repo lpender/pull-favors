@@ -1,5 +1,5 @@
 (function() {
-  console.log("Pull Favors Initializing")
+  console.log("Pull Favors Initializing");
 
   var File, FileManager, fileParent, init, tocParent,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -60,7 +60,7 @@
 
   })();
 
-  var files;
+  var files = [];
 
   FileManager = (function() {
     function FileManager() {
@@ -71,11 +71,8 @@
       var newFiles = this._initFiles(fileParent);
 
       if (newFiles && newFiles.length > 0) {
-        if (files) {
-          $.merge(files, newFiles);
-        } else {
-          files = newFiles;
-        }
+        files = newFiles;
+
         this.$parent = $(fileParent);
         this.$tocParent = $(tocParent);
         this._setStyles();
@@ -151,9 +148,9 @@
   })();
 
   var pf = new FileManager();
-  pf.getNewFiles()
+  pf.getNewFiles();
 
   setInterval(function () {
-    pf.getNewFiles()
+    pf.getNewFiles();
   }, 500);
 }).call(this);
